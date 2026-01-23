@@ -56,4 +56,4 @@ pytest -rA -s -v -m "ui"
 ```
 
 #### TEST EXECUTION
-![Test Execution](ui_automation.gif)
+![Test Execution](ui_test_execution.gif)
