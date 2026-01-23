@@ -1,25 +1,21 @@
 import logging
 import os
-
-import urllib
-from clients.ui_client import UIClient
 import pytest
-import time
+
+from clients.ui_client import UIClient
 
 
 logging.basicConfig(
     level=logging.DEBUG,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    format="%(asctime)-15s - %(levelname)s - [%(filename)-.20s | L%(lineno)d] - %(message)s"
 )
 logging.getLogger("selenium").setLevel(logging.WARNING)
-logging.getLogger("selenium").propagate = False
 logging.getLogger("urllib3").setLevel(logging.WARNING)
-logging.getLogger("urllib3").propagate = False
 
 
 @pytest.fixture(scope="session")
 def logger():
-    """Logging fixture to allow across-the-board logging"""
+    """Logging fixture to be used across the tests"""
     return logging.getLogger(__name__)
 
 @pytest.fixture(scope="module")

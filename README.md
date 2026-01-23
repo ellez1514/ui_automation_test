@@ -1,7 +1,33 @@
-# TEST SUITE FOR TWITCH WEB APP (USING MOBILE EMULATION)
-This repo contains automated test that tests the search for streamer in twitch
+# TEST SUITE FOR TWITCH WEB APP (USING MOBILE EMULATOR)
+This repo contains automated test that tests the search of streamer in twitch
 
-#### HOW TO EXECUTE TESTS:
+#### TEST CASE
+
+| Test Case              | Scenario   | Expected Outcome                             |
+|------------------------|------------|----------------------------------------------|
+| `test_select_streamer` | Happy Path | Select the streamer and capture a screenshot |
+
+
+#### REPO STRUCTURE DESCRIPTION
+
+| Folder / Subfolder | File                        | Description                                       |
+|------------------- |----------------------------|----------------------------------------------------|
+| `clients/`         | `__init__.py`              | Marks the clients dir as a Python package          |
+| `clients/`         | `ui_client.py`             | Client that contains Selenium WebDriver wrapper    |
+| `data/`            | `Locators.py`              | Contains UI element locators                       |
+| `helpers/`         | `ui_utils.py`              | Helper functions used for UI automation            |
+| `screenshots/`*    | -                          | Stores screenshots taken during test run           |
+| `tests/ui/`        | `conftest.py`              | Test configuration and fixtures for UI tests       |
+| `tests/ui/`        | `test_twitch_web_app.py`   | UI test cases for the Twitch web app               |
+| `/`                | `conftest.py`              | General config and fixtures for the whole project  |
+| `/`                | `pytest.ini`               | Pytest configuration file                          |
+| `/`                | `requirements.txt`         | Python package dependencies                        |
+| `/`                | `README.md`                | Project documentation                              |
+| `/`                | `ui_automation.gif`        | GIF of test execution                              |
+
+* Screenshots folder is created at test execution.
+
+#### HOW TO EXECUTE TEST:
 
 1. Install requirements:
 ```sh
@@ -24,7 +50,7 @@ MOBILE DEVICE has only been tested with "Pixel 7"
 ```sh
 pytest -rA -s -v tests/ui/test_twitch_web_app.py
 or
-cd tests/ui/test_twitch_web_app.py
+cd tests/ui/
 pytest -rA -s -v -m "ui"
 
 ```

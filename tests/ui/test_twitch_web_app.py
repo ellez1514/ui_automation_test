@@ -1,13 +1,13 @@
-from time import sleep
 import pytest
 from data import Locators
 from helpers.ui_utils import (
+    check_all_images_loaded,
     click_element, 
     conditions, 
     input_text, 
     scroll_to, 
     take_screenshot, 
-    wait_for, 
+    wait_for,
     waitBy
 )
 
@@ -18,7 +18,7 @@ __email__ = "elenidespinakamara@gmail.com"
 @pytest.mark.ui
 @pytest.mark.usefixtures("accept_cookies_banner_if_present")
 class TestTwitchWebApp:
-    """@brief Test suite for Twitch web application UI tests
+    """Test suite for Twitch web application UI tests
     """
 
     def test_select_streamer(self, logger, driver):
@@ -34,8 +34,8 @@ class TestTwitchWebApp:
         
         # Scroll down 2 times 
         # NOTE: No reason to scroll since page is not scrollable, but keeping as per original request
-        scroll_to(driver, x="0", y="50")
-        scroll_to(driver, x="0", y="50")
+        scroll_to(driver, "0", "50")
+        scroll_to(driver, "0", "50")
 
         # Click on the streamer from the search results
         click_element(
@@ -46,9 +46,12 @@ class TestTwitchWebApp:
             conditions.clickable
         )
 
-        # Wait for the page to load (NOTE: waiting for channels text to appear)
-        #  and take a screenshot
-        wait_for(driver, logger, waitBy.xpath, Locators.streamer_page["channels"], conditions.presence)
+        # Wait for the page to load (checks for header existence and that all images are loaded)
+        wait_for(driver, logger, waitBy.xpath, Locators.streamer_page["channels_header"], conditions.visibility)
+        wait_for(driver, logger, waitBy.xpath, Locators.streamer_page["categories_header"], conditions.visibility)
+        # NOTE: In a real test, the expected count should be  based on expected test data to avoid flakiness
+        check_all_images_loaded(driver, logger, expected_count=12)
+
         take_screenshot(driver, logger)
 
 

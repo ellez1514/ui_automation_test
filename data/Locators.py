@@ -1,4 +1,4 @@
-# Locators for web application elements
+# Locators for Twitch web application UI elements
 # NOTE: Opted to use one file for all locators as they are few and related to the same app. 
 # For larger projects, this would be splitted by page.
 
@@ -25,6 +25,7 @@ search_results = {
 }
 
 streamer_page = {
-    "channels": "//h2[text()='Channels']",
-    "video_images": "//img[@class='tw-image']"
+    "channels_header": "//h2[text()='Channels']",
+    "categories_header": "//h2[text()='Categories']",
+    "images": "//img[@class='tw-image']"
 }

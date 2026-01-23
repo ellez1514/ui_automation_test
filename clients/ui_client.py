@@ -6,15 +6,13 @@ from selenium.webdriver.chrome.service import Service
 
 class UIClient:
     """
-    Class implementing UI client functionality
+    Class implementing UI client functionality. It initializes the webdriver.
+
+    Args:
+        url (str): URL that tests will be executed against
+        logger: Logger object
     """
     def __init__(self, url, logger):
-        """UI client constructor
-
-        Args:
-            url: URL that tests will be executed against
-            logger: Logger
-        """
         self.url = url
         self.logger = logger
         self._options = None
@@ -40,9 +38,9 @@ class UIClient:
         _options = webdriver.ChromeOptions()
 
         if os.environ.get("USE_HEADLESS") == "0":
-            self.logger.info("Chrome will not be in headless mode.")
+            self.logger.info("Chrome will not be in headless mode")
         else:
-            self.logger.info("Chrome will be in headless mode.")
+            self.logger.info("Chrome will be in headless mode")
             _options.add_argument("--headless")
 
         _options.add_argument("--start-maximized")
@@ -55,7 +53,7 @@ class UIClient:
         """Get the webdriver based on options
 
         Returns: 
-            self._driver: The driver object if populated
+            self._driver: The driver object
         """
         if self._driver:
             return self._driver
