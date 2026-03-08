@@ -42,15 +42,24 @@ class TestTwitchWebApp:
             driver,
             logger,
             waitBy.xpath,
-            Locators.search_results["resultItem"].format(title=streamer_name),
+            Locators.search_results["streamerImageItem"].format(title=streamer_name),
             conditions.clickable
         )
 
-        # Wait for the page to load (checks for header existence and that all images are loaded)
-        wait_for(driver, logger, waitBy.xpath, Locators.streamer_page["channels_header"], conditions.visibility)
-        wait_for(driver, logger, waitBy.xpath, Locators.streamer_page["categories_header"], conditions.visibility)
+        # Wait for the page to load (checks for streamer name and that all images are loaded)
+        streamer_name_title = wait_for(
+            driver,
+            logger,
+            waitBy.xpath, 
+            Locators.streamer_page["streamer_name_title"].format(title=streamer_name),
+            conditions.visibility
+        )
+        assert streamer_name_title, "Streamer name title is not found"
+        love_button = wait_for(driver, logger, waitBy.xpath, Locators.buttons["love_button"], conditions.visibility)
+        assert love_button, "Love button is not found"
+        
         # NOTE: In a real test, the expected count should be  based on expected test data to avoid flakiness
-        check_all_images_loaded(driver, logger, expected_count=12)
+        check_all_images_loaded(driver, logger, expected_count=18)
 
         take_screenshot(driver, logger)
 

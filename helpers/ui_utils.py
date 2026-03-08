@@ -24,6 +24,7 @@ class conditions:
     presence = EC.presence_of_element_located
     visibility = EC.visibility_of_element_located
     visibility_all = EC.presence_of_all_elements_located
+    invisibility = EC.invisibility_of_element_located
 
 # NOTE: This function could be moved to general "utils" file
 # Its only used in this file so opted to keep here
@@ -114,6 +115,7 @@ def input_text(driver, logger, by, element, value, timeout=10):
         value(str): The text to enter into the input field.
     """
     ele = wait_for(driver, logger, by, element, conditions.presence, timeout)
+    assert ele, f"Cannot find element to input text: {element}"
     ele.send_keys(value)
 
 
@@ -173,5 +175,5 @@ def take_screenshot(driver, logger, name=""):
 
     screenshot_path = screenshots_dir / filename
 
-    logger.info(f"Taking screenshot and will save in: '{filename}'\n")
+    logger.info(f"Taking screenshot and will save in: '{filename}")
     driver.save_screenshot(screenshot_path)

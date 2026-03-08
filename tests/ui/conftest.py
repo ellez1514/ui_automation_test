@@ -33,6 +33,13 @@ def accept_cookies_banner_if_present(driver, logger):
         click_element(
             driver, logger, waitBy.xpath, Locators.cookies_banners["acceptCookiesButton"], conditions.clickable
         )
+        
+        # Verify that banner is invisible to avoid 'ElementClickInterceptedException'
+        verify_invisibility = wait_for(
+            driver, logger, waitBy.xpath, Locators.cookies_banners["cookieConsentBanner"], conditions.invisibility
+        )
+        assert verify_invisibility, "Expected cookies banner to be invisible"
+
     else:
         logger.info("Cookies banner is not present. No action needed.")
 

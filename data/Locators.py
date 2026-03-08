@@ -22,9 +22,11 @@ input_fields = {
 
 search_results = {
     "resultItem": "//p[@title='{title}']",
+    "streamerImageItem": "//img[@class='tw-image' and @alt='{title}']"
 }
 
 streamer_page = {
+    "streamer_name_title": "//h1[text()='{title}']",
     "channels_header": "//h2[text()='Channels']",
     "categories_header": "//h2[text()='Categories']",
     "images": "//img[@class='tw-image']"
