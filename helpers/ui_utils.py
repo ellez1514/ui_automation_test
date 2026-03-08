@@ -118,17 +118,6 @@ def input_text(driver, logger, by, element, value, timeout=10):
     assert ele, f"Cannot find element to input text: {element}"
     ele.send_keys(value)
 
-
-def scroll_to(driver, x, y):
-    """Scrolls the web page to the specified x and y coordinates.
-
-    Args:
-        driver: Selenium driver object
-        x(int): The x coordinate to scroll to.
-        y(int): The y coordinate to scroll to.
-    """
-    driver.execute_script(f"window.scrollTo({x}, {y});")
-
 @retry(AssertionError, tries=6, delay=0.5)
 def check_all_images_loaded(driver, logger, expected_count):
     """Check if all images on the page have been loaded. Retries on failure.

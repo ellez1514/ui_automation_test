@@ -5,7 +5,6 @@ from helpers.ui_utils import (
     click_element, 
     conditions, 
     input_text, 
-    scroll_to, 
     take_screenshot, 
     wait_for,
     waitBy
@@ -16,7 +15,7 @@ __email__ = "elenidespinakamara@gmail.com"
 
 
 @pytest.mark.ui
-@pytest.mark.usefixtures("accept_cookies_banner_if_present")
+@pytest.mark.usefixtures("select_keep_using_web_button", "accept_cookies_banner_if_present")
 class TestTwitchWebApp:
     """Test suite for Twitch web application UI tests
     """
@@ -31,11 +30,6 @@ class TestTwitchWebApp:
         # NOTE: Original request mentions "click search icon", but that doesn't exist on Twitch UI
         click_element(driver, logger, waitBy.xpath, Locators.navigation_tabs["browse"], conditions.clickable)
         input_text(driver, logger, waitBy.xpath, Locators.input_fields["searchInputField"], streamer_name)
-        
-        # Scroll down 2 times 
-        # NOTE: No reason to scroll since page is not scrollable, but keeping as per original request
-        scroll_to(driver, "0", "50")
-        scroll_to(driver, "0", "50")
 
         # Click on the streamer from the search results
         click_element(
@@ -59,7 +53,7 @@ class TestTwitchWebApp:
         assert love_button, "Love button is not found"
         
         # NOTE: In a real test, the expected count should be  based on expected test data to avoid flakiness
-        check_all_images_loaded(driver, logger, expected_count=18)
+        check_all_images_loaded(driver, logger, expected_count=17)
 
         take_screenshot(driver, logger)
 

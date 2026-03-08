@@ -4,7 +4,9 @@
 
 buttons = {
     "closeButton": "//span[@title='Remove Widget']",
-    "love_button": "//button[@data-a-target='game-directory-follow-button']"
+    "love_button": "//button[@data-a-target='game-directory-follow-button']",
+    "keep_using_web_button": "//p[text()='Keep using web']",
+    "close_dialog_button": "//button[@aria-label='Activate to close dialog']"
 }
 
 navigation_tabs = {
