@@ -1,13 +1,9 @@
 import pytest
 
-from data import Locators
 from helpers.ui_utils import (
-    click_element,
-    conditions,
-    wait_for,
-    waitBy,
     take_screenshot,
 )
+from pages import StreamerPage, SearchResultsPage, BasePage
 
 def pytest_exception_interact(node, call, report):
     """Pytest builtin function. In case of exception, takes screenshot."""
@@ -23,44 +19,30 @@ def pytest_exception_interact(node, call, report):
         take_screenshot(driver, logger)
 
 @pytest.fixture(scope="class")
-def select_keep_using_web_button(driver, logger):
+def streamer_page(driver, logger):
+    """Returns a ready-to-use LoginPage object"""
+    return StreamerPage(driver, logger)
+
+@pytest.fixture(scope="class")
+def search_results_page(driver, logger):
+    """Returns a ready-to-use LoginPage object"""
+    return SearchResultsPage(driver, logger)
+
+@pytest.fixture(scope="class")
+def base_page(driver, logger):
+    """Returns a ready-to-use LoginPage object"""
+    return BasePage(driver, logger)
+
+@pytest.fixture(scope="class")
+def select_keep_using_web_button(base_page):
     """
     Select "keep using web" button
     """
-    close_dialog_button = wait_for(
-        driver, logger, waitBy.xpath, Locators.buttons["close_dialog_button"], conditions.clickable
-    )
-
-    if close_dialog_button:
-        logger.info("Its required to select between using app or web browser. Select web browser")
-        click_element(
-            driver, logger, waitBy.xpath, Locators.buttons["keep_using_web_button"], conditions.clickable
-        )
-    else:
-        logger.info("Dialog does not exist. No action required.")
+    base_page.select_keep_using_web_button()
 
 @pytest.fixture(scope="class")
-def accept_cookies_banner_if_present(driver, logger):
+def accept_cookies_banner_if_present(base_page):
     """
     Accepts the cookies banner if it is present on the page.
     """
-    cookies_banner = wait_for(
-        driver, logger, waitBy.xpath, Locators.cookies_banners["cookieConsentBanner"], conditions.clickable
-    )
-
-    if cookies_banner:
-        logger.info("Cookies banner is present. Accepting cookies.")
-        click_element(
-            driver, logger, waitBy.xpath, Locators.cookies_banners["acceptCookiesButton"], conditions.clickable
-        )
-        
-        # Verify that banner is invisible to avoid 'ElementClickInterceptedException'
-        verify_invisibility = wait_for(
-            driver, logger, waitBy.xpath, Locators.cookies_banners["cookieConsentBanner"], conditions.invisibility
-        )
-        assert verify_invisibility, "Expected cookies banner to be invisible"
-
-    else:
-        logger.info("Cookies banner is not present. No action needed.")
-
-    
+    base_page.accept_cookies_banner_if_present()

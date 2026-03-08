@@ -14,8 +14,11 @@ This repo contains automated test that tests the search of streamer in twitch
 |------------------- |----------------------------|----------------------------------------------------|
 | `clients/`         | `__init__.py`              | Marks the clients dir as a Python package          |
 | `clients/`         | `ui_client.py`             | Client that contains Selenium WebDriver wrapper    |
-| `data/`            | `Locators.py`              | Contains UI element locators                       |
 | `helpers/`         | `ui_utils.py`              | Helper functions used for UI automation            |
+| `pages/`           | `__init__.py`              | Marks the pages dir as a Python package            |
+| `pages/`           | `base_page.py`             | Base page class for Page Object Model              |
+| `pages/`           | `search_results_page.py`   | Page object for search results                     |
+| `pages/`           | `streamer_page.py`         | Page object for streamer page                      |
 | `screenshots/`*    | -                          | Stores screenshots taken during test run           |
 | `tests/ui/`        | `conftest.py`              | Test configuration and fixtures for UI tests       |
 | `tests/ui/`        | `test_twitch_web_app.py`   | UI test cases for the Twitch web app               |
